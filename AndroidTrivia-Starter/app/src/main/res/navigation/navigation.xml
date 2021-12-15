@@ -23,10 +23,9 @@
         android:label="fragment_game_over"
         tools:layout="@layout/fragment_game_over" >
         <action
-            android:id="@+id/action_gameOverFragment_to_titleFragment"
-            app:destination="@id/titleFragment"
-            app:popUpTo="@id/gameOverFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_gameOverFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameWonFragment"
@@ -34,10 +33,9 @@
         android:label="fragment_game_won"
         tools:layout="@layout/fragment_game_won" >
         <action
-            android:id="@+id/action_gameWonFragment_to_titleFragment"
-            app:destination="@id/titleFragment"
-            app:popUpTo="@id/gameWonFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_gameWonFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:popUpTo="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/rulesFragment"
