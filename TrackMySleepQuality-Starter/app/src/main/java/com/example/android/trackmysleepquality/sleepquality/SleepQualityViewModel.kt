@@ -26,5 +26,11 @@ class SleepQualityViewModel(
     private val sleepNightKey: Long = 0L,
     private val dataSource: SleepDatabaseDao
 ) : ViewModel() {
+    private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
+    val navigateToSleepTracker: LiveData<Boolean?>
+        get() = _navigateToSleepTracker
 
+    fun doneNavigating() {
+        _navigateToSleepTracker.value = null
+    }
 }
