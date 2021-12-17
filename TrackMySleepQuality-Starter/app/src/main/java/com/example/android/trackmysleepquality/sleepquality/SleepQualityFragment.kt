@@ -22,7 +22,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.android.trackmysleepquality.R
+import com.example.android.trackmysleepquality.database.SleepDatabase
 import com.example.android.trackmysleepquality.databinding.FragmentSleepQualityBinding
 
 /**
@@ -33,18 +37,36 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepQualityB
  */
 class SleepQualityFragment : Fragment() {
 
+    private lateinit var viewModel: SleepQualityViewModel
+    private val args: SleepQualityFragmentArgs by navArgs()
+
     /**
      * Called when the Fragment is ready to display content to the screen.
      *
      * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepQualityBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_quality, container, false)
+            inflater, R.layout.fragment_sleep_quality, container, false
+        )
+
+        val application = requireNotNull(activity).application
+
+        val dataSource = SleepDatabase.getInstance(application).getSleepDatabaseDao()
+
+        viewModel = ViewModelProvider(
+            this,
+            SleepQualityViewModelFactory(args.sleepNightKey, dataSource)
+        ).get(SleepQualityViewModel::class.java)
+
 
         return binding.root
     }
+
+
 }
