@@ -38,21 +38,20 @@ class ScoreFragment : Fragment() {
     private lateinit var viewModelFactory: ScoreViewModelFactory
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         // Inflate view and obtain an instance of the binding class.
         val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.score_fragment,
-                container,
-                false
+            inflater,
+            R.layout.score_fragment,
+            container,
+            false
         )
 
         val args: ScoreFragmentArgs by navArgs()
-        // val args: ScoreFragmentArgs.fromBundle(getArguments()) doesn't work...?
 
         viewModelFactory = ScoreViewModelFactory(args.score)
         viewModel = ViewModelProvider(this, viewModelFactory)
