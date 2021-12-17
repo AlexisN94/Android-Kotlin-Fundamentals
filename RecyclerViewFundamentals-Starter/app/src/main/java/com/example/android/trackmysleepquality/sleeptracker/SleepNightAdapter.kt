@@ -60,7 +60,7 @@ class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewH
             fun from(parent: ViewGroup): SleepNightViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
-                    .inflate(R.layout.list_item_sleep_night, parent, false) as TextView
+                    .inflate(R.layout.list_item_sleep_night, parent, false)
 
                 return SleepNightViewHolder(view)
             }
