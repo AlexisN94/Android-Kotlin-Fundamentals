@@ -1,20 +1,36 @@
 package com.example.android.guesstheword.screens.game
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
 
     // The current word
-    var word: String = ""
+    private val _word = MutableLiveData<String>()
 
     // The current score
-    var score = 0
+    private val _score = MutableLiveData<Int>()
+
+    // Event which triggers the end of the game
+    private val _eventGameFinish = MutableLiveData<Boolean>()
+
+    val score: LiveData<Int>
+        get() = _score
+
+    val word: LiveData<String>
+        get() = _word
+
+    val eventGameFinish: LiveData<Boolean>
+        get() = _eventGameFinish
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
 
     init {
+        _word.value = ""
+        _score.value = 0
+        _eventGameFinish.value = false
         resetList()
         nextWord()
     }
@@ -51,13 +67,17 @@ class GameViewModel : ViewModel() {
 
     /** Methods for buttons presses **/
     fun onSkip() {
-        score--
+        _score.value = _score.value?.plus(1)
         nextWord()
     }
 
     fun onCorrect() {
-        score++
+        _score.value = _score.value?.plus(1)
         nextWord()
+    }
+
+    fun onGameFinish() {
+        _eventGameFinish.value = true
     }
 
     /**
@@ -66,7 +86,13 @@ class GameViewModel : ViewModel() {
     private fun nextWord() {
         if (!wordList.isEmpty()) {
             //Select and remove a word from the list
-            word = wordList.removeAt(0)
+            _word.value = wordList.removeAt(0)
+        } else {
+            onGameFinish()
         }
+    }
+
+    fun onGameFinishComplete() {
+        _eventGameFinish.value = false
     }
 }
