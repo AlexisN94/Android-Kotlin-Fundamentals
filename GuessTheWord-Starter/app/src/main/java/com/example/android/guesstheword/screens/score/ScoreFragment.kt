@@ -54,7 +54,6 @@ class ScoreFragment : Fragment() {
         )
 
         val args: ScoreFragmentArgs by navArgs()
-        // val args: ScoreFragmentArgs.fromBundle(getArguments()) doesn't work...?
 
         viewModelFactory = ScoreViewModelFactory(args.score)
         viewModel = ViewModelProvider(this, viewModelFactory)
