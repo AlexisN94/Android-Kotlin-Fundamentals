@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.trackmysleepquality.R
 import com.example.android.trackmysleepquality.database.SleepNight
@@ -13,26 +15,20 @@ import com.example.android.trackmysleepquality.convertNumericQualityToString
 import kotlinx.android.synthetic.main.list_item_sleep_night.view.*
 
 
-class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewHolder>() {
-    var data = listOf<SleepNight>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class SleepNightAdapter
+    : ListAdapter<SleepNight, SleepNightAdapter.SleepNightViewHolder>(SleepNightDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SleepNightViewHolder {
         return SleepNightViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: SleepNightViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
-
-    override fun getItemCount() = data.size
-
-    class SleepNightViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SleepNightViewHolder private constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView) {
         private val sleepLength: TextView = itemView.findViewById(R.id.sleep_length)
         private val quality: TextView = itemView.findViewById(R.id.quality_string)
         private val qualityImage: ImageView = itemView.findViewById(R.id.quality_image)
@@ -65,5 +61,15 @@ class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.SleepNightViewH
                 return SleepNightViewHolder(view)
             }
         }
+    }
+}
+
+class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepNight>() {
+    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
+        return oldItem.nightId == newItem.nightId
+    }
+
+    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
+        return oldItem == newItem
     }
 }
