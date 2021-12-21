@@ -23,8 +23,6 @@
         <variable
             name="gameViewModel"
             type="com.example.android.guesstheword.screens.game.GameViewModel" />
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
