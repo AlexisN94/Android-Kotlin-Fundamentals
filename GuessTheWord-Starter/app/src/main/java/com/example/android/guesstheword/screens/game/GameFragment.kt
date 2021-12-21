@@ -37,8 +37,7 @@ class GameFragment : Fragment() {
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: GameFragmentBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
