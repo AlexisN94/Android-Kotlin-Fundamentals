@@ -6,7 +6,6 @@ import androidx.work.WorkerParameters
 import com.example.android.devbyteviewer.database.getDatabase
 import com.example.android.devbyteviewer.repository.VideosRepository
 import retrofit2.HttpException
-import timber.log.Timber
 
 /**
  * Worker to pre-fetch the DevBytes video playlist in the background
