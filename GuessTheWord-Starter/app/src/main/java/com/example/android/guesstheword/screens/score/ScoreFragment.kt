@@ -46,7 +46,6 @@ class ScoreFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.score_fragment, container, false)
 
         val args: ScoreFragmentArgs by navArgs()
-        // val args: ScoreFragmentArgs.fromBundle(getArguments()) doesn't work...?
 
         viewModelFactory = ScoreViewModelFactory(args.score)
         viewModel = ViewModelProvider(this, viewModelFactory)

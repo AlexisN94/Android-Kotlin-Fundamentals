@@ -33,7 +33,6 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
  * Fragment where the game is played
  */
 class GameFragment : Fragment() {
-
     private lateinit var viewModel: GameViewModel
     private lateinit var binding: GameFragmentBinding
 
@@ -41,10 +40,10 @@ class GameFragment : Fragment() {
 
         // Inflate view and obtain an instance of the binding class
         binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.game_fragment,
-                container,
-                false
+            inflater,
+            R.layout.game_fragment,
+            container,
+            false
         )
 
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
@@ -52,12 +51,13 @@ class GameFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.eventGameFinish.observe(viewLifecycleOwner, { hasFinished ->
-            if(hasFinished) gameFinished()
+            if (hasFinished) gameFinished()
         })
 
         return binding.root
 
     }
+
     private fun onSkip() {
         viewModel.onSkip()
     }
@@ -74,7 +74,6 @@ class GameFragment : Fragment() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
         val action = GameFragmentDirections.actionGameToScore()
         action.score = viewModel.score.value ?: 0
-        // NavHostFragment.findNavController(this).navigate(action)
         findNavController().navigate(action)
         viewModel.onGameFinishComplete()
     }
