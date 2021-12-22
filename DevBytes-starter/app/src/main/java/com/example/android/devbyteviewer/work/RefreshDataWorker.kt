@@ -12,6 +12,10 @@ import timber.log.Timber
  * Worker to pre-fetch the DevBytes video playlist in the background
  */
 class RefreshDataWorker(appContext: Context, params: WorkerParameters) : CoroutineWorker(appContext, params) {
+    companion object {
+        const val WORK_NAME = "com.example.android.devbyteviewer.work.RefreshDataWorker"
+    }
+
     override suspend fun doWork(): Result {
         val database = getDatabase(applicationContext)
         val repository = VideosRepository(database)
